@@ -3,7 +3,7 @@ import numpy as np
 
 from task1 import model_evaluation
 from task1.feature_exaction import Ngram, Tfidf
-from task1.load_data import load_data
+from task1.load_data import load_training_data
 
 
 class LogisticClassifier:
@@ -106,7 +106,7 @@ class SoftmaxClassifier:
         return res
 
 
-documents, y = load_data()
+documents, y = load_training_data()
 X = Tfidf().fit_transform(documents)
 # X = Ngram(2).fit_transform(documents)
 lrm = SoftmaxClassifier()

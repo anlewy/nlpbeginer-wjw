@@ -35,11 +35,11 @@ class Ngram:
         for text in texts:
             word_set.update(self.get_grams(text))
         self.length = len(word_set)
-        id = 0
+        idx = 0
         for word in word_set:
-            self.word2id[word] = id
-            self.id2word[id] = word
-            id = id + 1
+            self.word2id[word] = idx
+            self.id2word[idx] = word
+            idx = idx + 1
 
     def transform(self, texts):
         n = len(texts)
@@ -70,12 +70,11 @@ class BagOfWord(Ngram):
 class Tfidf:
     def __init__(self):
         self.feature_names = []
+        self.feature_num = 0
         self.idf_map = {}
-        self.N = 0
         self.idf = []
 
     def fit(self, texts):
-        import numpy as np
         word_set = set()
         for text in texts:
             words = set(do_split(text))
@@ -88,15 +87,15 @@ class Tfidf:
 
         self.feature_names = list(word_set)
         self.feature_names.sort()
-        self.N = len(word_set)
+        self.feature_num = len(word_set)
         for word in self.idf_map:
-            self.idf_map[word] = np.log(self.N / self.idf_map[word])
+            self.idf_map[word] = np.log(self.feature_num / self.idf_map[word])
         for feature in self.feature_names:
             self.idf.append(self.idf_map[feature])
 
     def transform(self, texts):
         n = len(texts)
-        res = np.zeros((n, self.N))
+        res = np.zeros((n, self.feature_num))
         for i, text in enumerate(texts):
             words = do_split(text)
             ll = len(words)
