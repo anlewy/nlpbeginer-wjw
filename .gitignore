@@ -4,5 +4,5 @@ __pycache__/
 .data/
 data/
 *zip
-.DS_Store
+*.DS_Store
 nlp/
