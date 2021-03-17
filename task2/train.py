@@ -19,7 +19,7 @@ torch.nn.init.normal_(net.linear.weight, mean=0, std=0.01)
 torch.nn.init.constant_(net.linear.bias, val=0)
 
 loss = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(net.parameters(), lr=0.05)
+optimizer = torch.optim.SGD(net.parameters(), lr=0.01)
 
 
 def accuracy(_y_hat, y):
@@ -37,7 +37,7 @@ def net_accuracy(data_iter, net):
     return right_sum / n
 
 
-num_epochs = 256
+num_epochs = 32
 for epoch in range(num_epochs):
     train_l_sum, train_right_sum, n = 0.0, 0.0, 0
 
