@@ -88,7 +88,7 @@ class ESIM(nn.Module):
         return x1_align, x2_align
 
     def composition(self, x, lens):
-        x = F.relu(self.fc1(x))
+        x = F.relu(self.fullconn1(x))
         x_compose = self.bilstm2(self.dropout(x), lens)  # (batch, seq_len, hidden_size)
         p1 = F.avg_pool1d(x_compose.transpose(1, 2), x.size(1)).squeeze(-1)  # (batch, hidden_size)
         p2 = F.max_pool1d(x_compose.transpose(1, 2), x.size(1)).squeeze(-1)  # (batch, hidden_size)
@@ -123,5 +123,5 @@ class ESIM(nn.Module):
         composed = torch.cat([x1_composed, x2_composed], -1)  # (batch, 4*hidden_size)
 
         # MLP classifier
-        out = self.fc3(self.dropout(torch.tanh(self.fc2(self.dropout(composed)))))
+        out = self.fullconn3(self.dropout(torch.tanh(self.fullconn2(self.dropout(composed)))))
         return out
