@@ -57,10 +57,11 @@ def train(model, loss_func, optimizer, train_iter, valid_iter, epochs=10, clip=5
         tqdm.write("Epoch %d, Train perplexity: %d" % (epoch + 1, math.exp(total_loss / total_words)))
         evaluate(model, loss_func, data_iter=valid_iter, is_dev=True, epoch=epoch)
 
-        // 学习率衰减
+        # 学习率衰减
         lr = LEARNING_RATE / (1 + (epoch + 1) * DECAY_RATE)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
+
 
 def generate(model, TEXT, eos_idx, word, temperature=0.8, device='cpu'):
     model.eval()
