@@ -4,7 +4,7 @@ from task1.feature_exaction import Tfidf
 from task1.load_data import load_testing_data, load_training_data
 
 
-def get_data_iterator():
+def get_data_iter():
     documents, y = load_training_data(0.1)
     n = len(y)
     train_num = n * 2 // 3

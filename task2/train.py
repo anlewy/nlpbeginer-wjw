@@ -1,8 +1,8 @@
 import torch
 
-from task2.data_iterator import get_data_iterator
+from task2.data import get_data_iter
 
-data_train_iter, data_test_iter, num_inputs, num_outputs = get_data_iterator()
+data_train_iter, data_test_iter, num_inputs, num_outputs = get_data_iter()
 
 
 class LinearNet(torch.nn.Module):
