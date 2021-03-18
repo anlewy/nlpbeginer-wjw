@@ -8,14 +8,14 @@ class BiLSTM(nn.Module):
         super(BiLSTM, self).__init__()
         self.hidden_size = hidden_size
         if layer_num == 1:
-            self.net = nn.LSTM(input_size, hidden_size // 2, layer_num, batch_first=True, bidirectional=True)
+            self.lstm = nn.LSTM(input_size, hidden_size // 2, layer_num, batch_first=True, bidirectional=True)
         else:
-            self.net = nn.LSTM(input_size, hidden_size // 2, layer_num, batch_first=True, dropout=dropout_rate,
-                               bidirectional=True)
+            self.lstm = nn.LSTM(input_size, hidden_size // 2, layer_num, batch_first=True, dropout=dropout_rate,
+                                bidirectional=True)
         self.init_weights()
 
     def init_weights(self):
-        for p in self.net.parameters():
+        for p in self.lstm.parameters():
             if p.dim() > 1:
                 nn.init.normal_(p)
                 p.data.mul_(0.01)
@@ -28,7 +28,7 @@ class BiLSTM(nn.Module):
         ordered_seqs = seqs[index]
 
         packed_seqs = nn.utils.rnn.pack_padded_sequence(ordered_seqs, ordered_lens, batch_first=True)
-        packed_output, _ = self.net(packed_seqs)
+        packed_output, _ = self.lstm(packed_seqs)
         output, _ = nn.utils.rnn.pad_packed_sequence(packed_output, batch_first=True)
 
         recover_index = index.argsort()

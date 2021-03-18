@@ -13,7 +13,7 @@ LEARNING_RATE = 0.01
 EPOCHS = 16
 DEVICE = 'cpu'
 
-#获取数据
+# 获取数据
 train_iter, valid_iter, test_iter, TEXT, LABEL = get_data_iter(data_path=DATA_PATH, batch_size=BATCH_SIZE, device=DEVICE)
 
 # 三要素
