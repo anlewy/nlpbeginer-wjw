@@ -1,5 +1,6 @@
 import torch.nn as nn
 import torch
+import torch.nn.functional as F
 
 
 class BiLSTM(nn.Module):
@@ -37,7 +38,7 @@ class COMBINED_MODEL(nn.Module):
         self.embed = nn.Embedding(vocab_size, embed_size)
         self.lstm = BiLSTM(embed_size, hidden_size, layer_num, dropout_rate)
         self.dropout = nn.Dropout(dropout_rate)
-        self.full = nn.Linear(hidden_size, num_labels)
+        self.full = nn.Linear(2*hidden_size, num_labels)
 
         self.init_weights()
 
@@ -47,8 +48,14 @@ class COMBINED_MODEL(nn.Module):
         nn.init.normal_(self.full.weight)
         self.full.weight.data.mul_(0.01)
 
+    def composition(self, x):
+        p_avg = F.avg_pool1d(x.transpose(1, 2), x.size(1)).squeeze(-1)
+        p_max = F.max_pool1d(x.transpose(1, 2), x.size(1)).squeeze(-1)
+        return torch.cat([p_avg, p_max], 1)
+
     def forward(self, x, x_lens):
         x_embed = self.embed(x)
         x_hidden = self.lstm(self.dropout(x_embed), x_lens)
-        output = self.full(self.dropout(x_hidden))
-        return torch.softmax(output)
+        x_com = self.composition(self.dropout(x_hidden))
+        output = self.full(self.dropout(x_com))
+        return torch.softmax(output, 1)

@@ -22,6 +22,7 @@ def evaluate(model, loss_func, data_iter):
             wrong_num += (predicts != labels).sum().item()
 
         acc = correct_num / (correct_num + wrong_num)
+        tqdm.write("evaluate accuracy: {}".format(acc))
         return acc
 
 
@@ -32,7 +33,7 @@ def train(model, loss_func, optimizer, train_iter, valid_iter, epochs=16, patien
     for epoch in tqdm(range(epochs)):
         total_loss = 0.0
         model.eval()
-        for i, batch in enumerate(tqdm(train_iter)):
+        for batch in tqdm(train_iter):
             phrases, lens = batch.phrase
             labels = batch.sentiment
 

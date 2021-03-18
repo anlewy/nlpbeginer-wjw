@@ -1,7 +1,6 @@
 from task2.data import get_data_iter
 from task2.model import COMBINED_MODEL
 from task2.train import train, evaluate
-import torch
 import torch.nn as nn
 import torch.optim as optim
 
@@ -12,7 +11,7 @@ HIDDEN_SIZE = 32
 DROPOUT_RATE = 0.3
 LAYER_NUM = 2
 LEARNING_RATE = 0.01
-EPOCHS = 16
+EPOCHS = 3
 DEVICE = 'cpu'
 PATIENCE = 3
 CLIP = 3
@@ -28,4 +27,4 @@ optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 # 模型训练和模型评价
 train(model, loss_func, optimizer, train_iter, valid_iter, EPOCHS, PATIENCE, CLIP)
 acc = evaluate(model, loss_func, test_iter)
-print("accuracy in test data is %d" % acc)
+print("accuracy in test data is {}".format(acc))
