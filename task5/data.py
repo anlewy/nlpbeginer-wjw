@@ -15,9 +15,9 @@ def preprocess(filename, max_length=128):
         pd.DataFrame([' '.join(poetry) for poetry in poetries], columns=['texts']).to_csv("data/poetry.csv")
 
 
-def get_data_iter(batch_size=16, device='cpu'):
+def get_data_iter(batch_size=16, device='cpu', eos_token='[EOS]'):
     preprocess("data/poetryFromTang.txt")
-    TEXT = Field(batch_first=True, include_lengths=True)
+    TEXT = Field(eos_token=eos_token, batch_first=True, include_lengths=True)
     fields = {
         'texts': ('text', TEXT)
     }
