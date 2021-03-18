@@ -95,13 +95,13 @@ class ESIM(nn.Module):
         return torch.cat([p1, p2], 1)  # (batch, hidden_size*2)
 
     def forward(self, x1, x1_lens, x2, x2_lens):
-        '''
+        """
         :param x1: (batch, seq1_len)
         :param x1_lens: (batch,)
         :param x2: (batch, seq2_len)
         :param x2_lens: (batch,)
         :return: (batch, num_class)
-        '''
+        """
         # Input encoding
         embed1 = self.embed(x1)  # (batch, seq1_len, embed_size)
         embed2 = self.embed(x2)  # (batch, seq2_len, embed_size)

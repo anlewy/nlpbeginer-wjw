@@ -25,8 +25,7 @@ def evaluate(model, loss_func, data_iter):
 
 
 def train(model, loss_func, optimizer, train_iter, valid_iter, epochs, patience=5, clip=5):
-    print("training...")
-    return
+    print("start training...")
     best_acc = -1
     patience_cnt = 0
     for epoch in range(epochs):

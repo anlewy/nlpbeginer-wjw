@@ -23,6 +23,6 @@ loss_func = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
 # 模型训练和模型评价
-# train(model, loss_func, optimizer, train_iter, valid_iter, EPOCHS)
+train(model, loss_func, optimizer, train_iter, valid_iter, EPOCHS)
 acc = evaluate(model, loss_func, test_iter)
 print(acc)
