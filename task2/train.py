@@ -30,7 +30,7 @@ def train(model, loss_func, optimizer, train_iter, valid_iter, epochs=16, patien
     best_acc = -1
     patience_cnt = 0
 
-    for epoch in tqdm(range(epochs)):
+    for epoch in range(epochs):
         total_loss = 0.0
         model.eval()
         for batch in tqdm(train_iter):
@@ -47,6 +47,9 @@ def train(model, loss_func, optimizer, train_iter, valid_iter, epochs=16, patien
             optimizer.step()
         tqdm.write("Epoch: %d, Train Loss: %d" % (epoch+1, total_loss))
 
+        print("Evaluate in train iter:")
+        acc = evaluate(model, loss_func, train_iter)
+        print("Evaluate in valid iter:")
         acc = evaluate(model, loss_func, valid_iter)
         if acc > best_acc:
             best_acc = acc
