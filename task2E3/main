@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+
+from task2E3 import data, util
+
+# (train_score_lgb, test_score_lgb) = baseline_lightgbm(X_bert, data['label'])
+# print("lightgbm: ", train_score_lgb, test_score_lgb)
+#
+# (train_score_lr, test_score_lr) = baseline_logistic(X_bert, data['label'])
+# print("logistic regression: ", train_score_lr, test_score_lr)
+#
+# (train_score_xgb, test_score_xgb) = baseline_xgboost(X_bert, data['label'])
+# print("logistic regression: ", train_score_xgb, test_score_xgb)
+
+
+data.prepare_data()
+
+X_tfidf = np.load('data/X_tfidf.npy', allow_pickle=True)
+X_count = np.load('data/X_count.npy', allow_pickle=True)
+X_bert = np.load('data/X_bert.npy', allow_pickle=True)
+
+y = np.load('data/label.npy', allow_pickle=True)
+
+for X in [X_tfidf, X_count, X_bert]:
+    train_score, test_score = util.baseline(X, y)
+    print((train_score, test_score,))
+

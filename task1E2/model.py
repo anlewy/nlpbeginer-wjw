@@ -27,10 +27,15 @@ parameters = {
     'solver': ['lbfgs', 'sag', 'newton-cg', 'saga']
 }
 
-clf_tfidf = GridSearchCV(estimator=LogisticRegressionCV(), param_grid=parameters)
-clf_tfidf.fit(X_train_tfidf, y_train)
-print("tfidf best estimator: {}".format(clf_tfidf.best_estimator_))
-print("score is: {}".format(clf_tfidf.score(X_train)))
+# clf_tfidf = GridSearchCV(estimator=LogisticRegressionCV(), param_grid=parameters)
+# clf_tfidf.fit(X_train_tfidf, y_train)
+# print("tfidf best estimator: {}".format(clf_tfidf.best_estimator_))
+# print("score is: {}".format(clf_tfidf.score(X_train)))
+lr = LogisticRegressionCV(multi_class='multinomial')
+lr.fit(X_train, y_train)
+y_pred_train = lr.predict(X_train)
+acc = sum(y_pred_train == y_train) / len(y_train)
+print(acc)
 
 # X_train_cnt模型调参
 X_train = X_train_cnt

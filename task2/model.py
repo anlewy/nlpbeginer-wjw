@@ -37,8 +37,8 @@ class COMBINED_MODEL(nn.Module):
         super(COMBINED_MODEL, self).__init__()
         self.embed = nn.Embedding(vocab_size, embed_size)
         self.lstm = BiLSTM(embed_size, hidden_size, layer_num, dropout_rate)
-        self.dropout = nn.Dropout(dropout_rate)
         self.full = nn.Linear(2*hidden_size, num_labels)
+        self.dropout = nn.Dropout(dropout_rate)
 
         self.init_weights()
 

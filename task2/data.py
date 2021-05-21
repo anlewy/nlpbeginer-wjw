@@ -1,4 +1,3 @@
-import torch
 from torchtext.legacy.data import Field, LabelField, Iterator, BucketIterator, TabularDataset
 
 

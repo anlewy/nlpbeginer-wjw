@@ -36,7 +36,7 @@ def evaluate(model, loss_func, data_iter, is_dev=False, epoch=None):
 
 
 def train(model, loss_func, optimizer, train_iter, valid_iter, epochs=10, clip=5):
-    for epoch in tqdm(range(epochs)):
+    for epoch in range(epochs):
         model.train()
         total_loss = 0.0
         total_words = 0
